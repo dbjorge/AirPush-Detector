@@ -1,0 +1,5 @@
+AirPush Detector
+
+This is a simple Android application which detects other installed applications which appear to
+use the AirPush ad framework. As of this writing, the framework provides no obvious means to tell
+which app is generating the highly obtrusive notification-based ads.
