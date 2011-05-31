@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, AirPushDetectorActivity!</string>
     <string name="app_name">AirPush Detector</string>
+    <string name="refresh">Refresh</string>
+    <string name="no_airpush_apps">No installed AirPush apps detected!</string>
 </resources>
