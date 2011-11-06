@@ -2,5 +2,5 @@
 <resources>
     <string name="app_name">AirPush Detector</string>
     <string name="refresh">Refresh</string>
-    <string name="no_airpush_apps">No installed AirPush apps detected!</string>
+    <string name="no_ad_apps">No installed notification ad apps detected!</string>
 </resources>

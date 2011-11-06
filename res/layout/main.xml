@@ -33,7 +33,7 @@
 	        />
 	    <TextView 
 	        android:id="@android:id/empty"
-	        android:text="@string/no_airpush_apps"
+	        android:text="@string/no_ad_apps"
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	        />
