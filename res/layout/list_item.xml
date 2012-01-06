@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:orientation="horizontal" android:layout_height="wrap_content" android:id="@+id/list_item_container">
+    <ImageView android:src="@android:drawable/ic_input_get" android:layout_width="wrap_content" android:layout_height="fill_parent" android:id="@+id/app_icon" android:contentDescription="@string/app_icon_content_description"></ImageView>
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/list_item_text_container">
+        <TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:id="@+id/app_name" android:text="@android:string/unknownName"></TextView>
+        <TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall" android:layout_width="wrap_content" android:id="@+id/ad_provider_name" android:text="@android:string/unknownName"></TextView>
+    </LinearLayout>
+    
+</LinearLayout>
