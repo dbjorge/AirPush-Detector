@@ -147,7 +147,10 @@ public class DetectorActivity extends ListActivity {
     		PackageInfo pkg = src.packageInfo;
 
     		holder.appName.setText(pm.getApplicationLabel(pkg.applicationInfo).toString());
-    		holder.adProviderName.setText(src.adProvider.friendlyName);
+    		holder.adProviderName.setText(
+    				getResources().getString(R.string.list_item_ad_framework_prefix) +
+    				": " +
+    				src.adProvider.friendlyName);
     		holder.appIcon.setImageDrawable(pkg.applicationInfo.loadIcon(pm));
 
     		return convertView;

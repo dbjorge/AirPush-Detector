@@ -43,7 +43,7 @@ public class Detector {
 	 */
 	public static final AdProvider[] AD_PROVIDERS = {
 		new AdProvider("AirPush", "com.airpush."),
-		new AdProvider("LeadBolt", "com.Leadbolt."),
+		new AdProvider("LeadBolt", "com.LeadBolt."),
 		new AdProvider("Appenda", "com.appenda."),
 		new AdProvider("IAC", "com.iac.notification."),
 		new AdProvider("TapIt", "com.tapit."),
@@ -99,10 +99,10 @@ public class Detector {
 		public String packagePrefix;
 		public AdProvider(String friendlyName, String packagePrefix) {
 			this.friendlyName = friendlyName;
-			this.packagePrefix = packagePrefix;
+			this.packagePrefix = packagePrefix.toLowerCase();
 		}
 		public boolean matches(PackageItemInfo component) {
-			return component.name.startsWith(packagePrefix);
+			return component.name.toLowerCase().startsWith(packagePrefix);
 		}
 	}
 	
