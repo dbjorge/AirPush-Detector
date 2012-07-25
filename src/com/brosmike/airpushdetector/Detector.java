@@ -48,8 +48,6 @@ public class Detector {
 		new AdProvider("IAC", "com.iac.notification."),
 		new AdProvider("TapIt", "com.tapit."),
 		new AdProvider("Moolah Media", "com.moolah."),
-    	new AdProvider("Urban Airship", "com.urbanairship."),
-    	new AdProvider("Xtify", "com.xtify.")
     };
 	
 	/**
