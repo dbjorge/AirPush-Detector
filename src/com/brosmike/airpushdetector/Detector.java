@@ -47,7 +47,7 @@ public class Detector {
 		new AdProvider("Appenda", "com.appenda."),
 		new AdProvider("IAC", "com.iac.notification."),
 		new AdProvider("TapIt", "com.tapit."),
-		new AdProvider("Moolah Media", "com.moolah."),
+		new AdProvider("Moolah Media", "com.adnotify."), // Note: There also exists com.moolahmedia., but that encompasses only their non-push-ads
     };
 	
 	/**
@@ -63,6 +63,7 @@ public class Detector {
 		"com.crittercism",
 		"com.facebook.",
 		"com.google.",
+		"com.moolahmedia.",
 		"com.openfeint.",
 		"com.paypal.",
 		"com.phonegap.",
