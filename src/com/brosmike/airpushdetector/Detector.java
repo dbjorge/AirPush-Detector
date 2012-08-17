@@ -46,7 +46,7 @@ public class Detector {
 		new AdProvider("LeadBolt", "com.LeadBolt."),
 		new AdProvider("Appenda", "com.appenda."),
 		new AdProvider("IAC", "com.iac.notification."),
-		new AdProvider("TapIt", "com.tapit."),
+		new AdProvider("TapIt (Old Version)", "com.tapit.adview.notif."), // Note: Legacy only. Current versions of TapIt SDK do not offer notification ads
 		new AdProvider("Moolah Media", "com.adnotify."), // Note: There also exists com.moolahmedia., but that encompasses only their non-push-ads
     };
 	
