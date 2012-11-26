@@ -20,7 +20,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -42,7 +45,8 @@ public class Detector {
 	 * Constant list of known notification ad provider package prefixes
 	 */
 	public static final AdProvider[] AD_PROVIDERS = {
-		new AdProvider("AirPush", "com.airpush."),
+		new AdProvider("AirPush (version 4 or less)", "com.airpush."),
+		new RegexAdProvider("Airpush", "com\\.[a-zA-Z]{8,9}\\.[a-zA-Z]{8,9}[\\d]{6,7}\\..*"),
 		new AdProvider("LeadBolt", "com.LeadBolt."),
 		new AdProvider("Appenda", "com.appenda."),
 		new AdProvider("IAC", "com.iac.notification."),
@@ -98,10 +102,23 @@ public class Detector {
 		public String packagePrefix;
 		public AdProvider(String friendlyName, String packagePrefix) {
 			this.friendlyName = friendlyName;
-			this.packagePrefix = packagePrefix.toLowerCase();
+			this.packagePrefix = packagePrefix.toLowerCase(Locale.US);
 		}
 		public boolean matches(PackageItemInfo component) {
-			return component.name.toLowerCase().startsWith(packagePrefix);
+			return component.name.toLowerCase(Locale.US).startsWith(packagePrefix);
+		}
+	}
+	
+	/** As a normal AdProvider, but matches based on a regex instead of a prefix */
+	public static class RegexAdProvider extends AdProvider{
+		private Pattern packageRegex;
+		public RegexAdProvider(String friendlyName, String packageRegex) {
+			super(friendlyName, "");
+			this.packageRegex = Pattern.compile(packageRegex);
+		}
+		@Override public boolean matches(PackageItemInfo component) {
+			Matcher matcher = packageRegex.matcher(component.name);
+			return matcher.matches();
 		}
 	}
 	
