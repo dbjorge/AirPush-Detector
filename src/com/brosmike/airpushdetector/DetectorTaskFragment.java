@@ -96,16 +96,16 @@ public class DetectorTaskFragment extends DialogFragment implements	DetectAsyncT
 		
 		if (mTask != null) {
 			mTask.cancel(false);
-		}
-
-		Fragment target = getTargetFragment();
-		if (target != null) {
-			if (!(target instanceof Callbacks)) {
-				throw new IllegalStateException("DetectorTaskFragment target must implement its callbacks");
-			}
 			
-			((Callbacks)target).onTaskCancelled();
-		}
+			Fragment target = getTargetFragment();
+			if (target != null) {
+				if (!(target instanceof Callbacks)) {
+					throw new IllegalStateException("DetectorTaskFragment target must implement its callbacks");
+				}
+				
+				((Callbacks)target).onTaskCancelled();
+			}
+		}		
 	}
 
 	@Override
@@ -132,12 +132,14 @@ public class DetectorTaskFragment extends DialogFragment implements	DetectAsyncT
 	public void onTaskFinished(AdSourcesInfo results) {
 		// We want to dismiss ourself here and indicate to the parent fragment that we've succeeded
 		// However, dismissing ourselves will cause a crash if we aren't actually active
-		// We'll get around this by setting mTask to null in that case - onResume will then call dismiss()		
+		// We'll get around this by setting mTask to null in that case - onResume will then call dismiss()
+		
+		// Setting mTask to null also ensures that we don't declare the task cancelled on dismiss
+		mTask = null;
+				
 		if (isResumed()) {
 			dismiss();
 		}
-
-		mTask = null;
 
 		// Tell the fragment that we are done.
 		Fragment target = getTargetFragment();

@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,7 +51,7 @@ public class DetectorFragment extends ListFragment implements DetectorTaskFragme
 		FragmentManager fm = getFragmentManager();
 		DetectorTaskFragment taskFragment = (DetectorTaskFragment) fm.findFragmentByTag(DetectorTaskFragment.TAG);
 		if (taskFragment != null) {
-			taskFragment.setTargetFragment(this, 0);
+			taskFragment.setTargetFragment(this, DetectorTaskFragment.TASK_REQUEST_CODE);
 		}
 	}
 	
@@ -59,6 +60,7 @@ public class DetectorFragment extends ListFragment implements DetectorTaskFragme
 		View fragmentView = inflater.inflate(R.layout.detector_fragment, container, false);
 		Button refreshButton = (Button) fragmentView.findViewById(R.id.refresh_button);
 		refreshButton.setOnClickListener(this);
+		
 		return fragmentView;
 	}
 	
@@ -85,11 +87,13 @@ public class DetectorFragment extends ListFragment implements DetectorTaskFragme
 	
 	@Override
 	public void onTaskCancelled() {
+		Log.d("DetectorFragment", "Task was cancelled");
 		populate(null);
 	}
 	
 	@Override
 	public void onTaskFinished(AdSourcesInfo adSources) {
+		Log.d("DetectorFragment", "Task finished (" + adSources.adSources.size() + " results)");
 		populate(adSources);
 	}
 	
