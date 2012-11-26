@@ -16,8 +16,8 @@
 -->
 <resources>
     <string name="app_name">AirPush Detector</string>
-    <string name="refresh">Refresh</string>
-    <string name="progress_dialog_text">Detecting&#8230;</string>
+    <string name="refresh">Scan</string>
+    <string name="progress_dialog_text">Scanning app %1$d/%2$d</string>
     <string name="app_icon_content_description">Advertising application\'s icon</string>
     <string name="list_item_ad_framework_prefix">Ad framework</string>
     <string name="no_ad_apps">Sorry - I couldn\'t find any apps with notification ads.\n\nIf you\'re seeing notification ads anyway, there\'s probably a new advertising company the detector doesn\'t know about yet.\n\nIf you\'d like to help, you can use the button below to email a list of your installed apps to me (the detector developer).\n\nThis is completely optional, and you\'ll be able to see everything that\'s being sent before it goes out. Your email address and installed applications will not be shared with anyone else, and I won\'t send you spam.</string>
@@ -26,4 +26,5 @@
     <string name="send_email_with">Send the report with:</string>
     <string name="report_email_subject">AirPush Detector Non-Detection Report</string>
 	<string name="report_email_body_prefix">I\'d like to help improve the AirPush Detector! Here is a list of potentially suspicious apps I have installed:</string>
+	<string name="progress_dialog_title">Scanning&#8230;</string>
 </resources>

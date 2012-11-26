@@ -25,8 +25,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageItemInfo;
@@ -179,16 +177,17 @@ public class Detector {
 	 *  Also displays a progress dialog while the iteration is in progress
 	 */
 	public static class DetectAsyncTask extends AsyncTask<Void, Integer, AdSourcesInfo> {
-		public static interface Callback { public void call(AdSourcesInfo detectResult); }
-		private final ProgressDialog dialog;
-		private final Activity activity;
-		private final Callback onPostExecutionCallback;
+		public static interface Callbacks {
+			public void onTaskFinished(AdSourcesInfo detectResult);
+			public void onProgressUpdate(int packagesScanned, int packagesTotal);
+		}
+		
+		private final Callbacks mCallbacks;
+		private final PackageManager mPackageManager;
 
-		public DetectAsyncTask(Activity ctx, Callback onPostExecutionCallback) {
-			this.activity = ctx;
-			this.onPostExecutionCallback = onPostExecutionCallback;
-			this.dialog = new ProgressDialog(ctx);
-			this.dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		public DetectAsyncTask(PackageManager packageManager, Callbacks callbacks) {
+			mPackageManager = packageManager;
+			mCallbacks = callbacks;
 		}
 
 		@Override
@@ -196,17 +195,20 @@ public class Detector {
 			AdSourcesInfo sources = new AdSourcesInfo();
 			StringBuilder detectionLogBuilder = new StringBuilder();
 			
-			PackageManager pm = activity.getPackageManager();
-			List<ApplicationInfo> appInfos = pm.getInstalledApplications(0);
+			List<ApplicationInfo> appInfos = mPackageManager.getInstalledApplications(0);
 			int appCount = appInfos.size();
 
 			for(int appIndex = 0; appIndex < appCount; appIndex++) {
+				if (isCancelled()) {
+					return null;
+				}
+				publishProgress(appIndex, appCount);
+								
 				ApplicationInfo appInfo = appInfos.get(appIndex);
 				Set<String> suspiciousPackages = new HashSet<String>();
 				
-				publishProgress(appIndex, appCount);
 				try {
-					PackageInfo pkgInfo = pm.getPackageInfo(appInfo.packageName,
+					PackageInfo pkgInfo = mPackageManager.getPackageInfo(appInfo.packageName,
 							PackageManager.GET_ACTIVITIES |
 							PackageManager.GET_RECEIVERS  |
 							PackageManager.GET_SERVICES);
@@ -250,23 +252,12 @@ public class Detector {
 
 		@Override
 		protected void onProgressUpdate(Integer... progress) {
-			this.dialog.setMax(progress[1]);
-			this.dialog.setProgress(progress[0]);
-		}
-
-		@Override
-		protected void onPreExecute() {
-			this.dialog.setMessage(this.activity.getString(R.string.progress_dialog_text));
-			this.dialog.show();
+			mCallbacks.onProgressUpdate(progress[0], progress[1]);
 		}
 
 		@Override
 		protected void onPostExecute(AdSourcesInfo detected) {
-			if(this.dialog.isShowing()) {
-				this.dialog.dismiss();
-			}
-
-			onPostExecutionCallback.call(detected);
+			mCallbacks.onTaskFinished(detected);
 		}
 	}
 }

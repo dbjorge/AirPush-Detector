@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:minWidth="240dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".DetectorTaskFragment" >
+
+    <TextView
+        android:id="@+id/detector_task_fragment_progress_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        />
+    <ProgressBar
+        android:id="@+id/detector_task_fragment_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        />
+</LinearLayout>
