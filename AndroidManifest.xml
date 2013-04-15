@@ -16,8 +16,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.brosmike.airpushdetector"
-      android:versionName="3.1"
-      android:versionCode="10"
+      android:versionName="3.2"
+      android:versionCode="11"
       android:installLocation="auto">
     <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="17" />
 
