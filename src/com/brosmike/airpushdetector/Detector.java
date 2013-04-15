@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2012 Daniel Bjorge
+   Copyright 2010-2013 Daniel Bjorge
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -50,6 +50,10 @@ public class Detector {
 		new AdProvider("IAC", "com.iac.notification."),
 		new AdProvider("TapIt (Old Version)", "com.tapit.adview.notif."), // Note: Legacy only. Current versions of TapIt SDK do not offer notification ads
 		new AdProvider("Moolah Media", "com.adnotify."), // Note: There also exists com.moolahmedia., but that encompasses only their non-push-ads
+		new AdProvider("SendDroid", "com.senddroid."),
+		new AdProvider("AppBucks", "com.appbucks.sdk."),
+		new AdProvider("Kuguo", "cn.kuguo."),
+		new AdProvider("Applovin'", "com.applovin."),
     };
 	
 	/**
