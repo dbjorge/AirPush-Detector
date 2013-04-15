@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2012 Daniel Bjorge
+   Copyright 2010-2013 Daniel Bjorge
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -21,7 +21,9 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -38,7 +40,18 @@ import android.widget.TextView;
 import com.brosmike.airpushdetector.Detector.AdSource;
 import com.brosmike.airpushdetector.Detector.AdSourcesInfo;
 
-public class DetectorFragment extends ListFragment implements DetectorTaskFragment.Callbacks, OnClickListener {
+/**
+ * This fragment controls the main view of the application. It directly manages the details of displaying
+ * the list of found apps and contains all the control buttons, but it delegates to a DetectorTaskFragment
+ * for actually performing the detection work. This separation is mostly so that the DetectorTaskFragment
+ * can persist through an orientation change without stopping the main UI from being able to re-render.
+ */
+public class DetectorFragment
+	extends ListFragment
+	implements
+		DetectorTaskFragment.Callbacks,
+		NativeDetectionDialogFragment.Callbacks,
+		OnClickListener {
 	
 	// ////////////////////////////////////////////////////////////////////////
 	// Lifecycle
@@ -47,11 +60,15 @@ public class DetectorFragment extends ListFragment implements DetectorTaskFragme
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		// If there already exists a task fragment doing work, reattach to it 
+		// If there already exists fragments doing work, reattach to them
 		FragmentManager fm = getFragmentManager();
 		DetectorTaskFragment taskFragment = (DetectorTaskFragment) fm.findFragmentByTag(DetectorTaskFragment.TAG);
 		if (taskFragment != null) {
 			taskFragment.setTargetFragment(this, DetectorTaskFragment.TASK_REQUEST_CODE);
+		}
+		Fragment dialogFragment = fm.findFragmentByTag(NativeDetectionDialogFragment.TAG);
+		if (dialogFragment != null) {
+			dialogFragment.setTargetFragment(this, NativeDetectionDialogFragment.TASK_REQUEST_CODE);
 		}
 	}
 	
@@ -82,26 +99,63 @@ public class DetectorFragment extends ListFragment implements DetectorTaskFragme
 	@Override
 	public void onClick(View v) {
 		// Only thing this responds to is the scan/refresh button
-		refresh();
+		refresh(false);
 	}
 	
+	// Callback from DetectorTaskFragment
 	@Override
 	public void onTaskCancelled() {
 		Log.d("DetectorFragment", "Task was cancelled");
 		populate(null);
 	}
 	
+	// Callback from DetectorTaskFragment	
 	@Override
 	public void onTaskFinished(AdSourcesInfo adSources) {
 		Log.d("DetectorFragment", "Task finished (" + adSources.adSources.size() + " results)");
 		populate(adSources);
 	}
 	
-	private void refresh() {
+	// Callback from NativeDetectionDialogFragment
+	@Override
+	public void onSelection(boolean doDetection) {
+		Log.d("DetectorFragment", "NativeDetectionDialogFragment returned that we " + (doDetection ? "should" : "should not") + " detect.");
+		if(doDetection) {
+			refresh(true);
+		}
+	}
+	
+	private void refresh(boolean force) {
+		if(!force && supportsNativeDetection()) {
+			showNativeDetectionInfo();
+			// We don't start a detector task here - if the user wants one after being told
+			// about the native path, this will be reinvoked with force=true by onSelection
+		} else {
+			startDetectionTask();			
+		}		
+	}
+	
+	/**
+	 * I think this native detection exists anytime the OS version is >= 4.1, but it's possible there are terrible
+	 * manufacturers who have disabled it that I don't know about...
+	 * 
+	 * @return Whether this device is capable of natively describing a notification's source by long-pressing it
+	 */
+	private boolean supportsNativeDetection() {
+		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+	}
+	
+	private void showNativeDetectionInfo() {
+		NativeDetectionDialogFragment dialog = new NativeDetectionDialogFragment();
+		dialog.setTargetFragment(this, NativeDetectionDialogFragment.TASK_REQUEST_CODE);
+		dialog.show(getFragmentManager(), NativeDetectionDialogFragment.TAG);
+	}
+	
+	private void startDetectionTask() {
 		DetectorTaskFragment taskFragment = new DetectorTaskFragment();
 		taskFragment.setTargetFragment(this, DetectorTaskFragment.TASK_REQUEST_CODE);
 		taskFragment.show(getFragmentManager(), DetectorTaskFragment.TAG);
-	}	
+	}
 	
 	private void populate(AdSourcesInfo adSources) {
 		if (adSources == null) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-   Copyright 2010-2012 Daniel Bjorge
+   Copyright 2010-2013 Daniel Bjorge
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -27,4 +27,8 @@
     <string name="report_email_subject">AirPush Detector Non-Detection Report</string>
 	<string name="report_email_body_prefix">I\'d like to help improve the AirPush Detector! Here is a list of potentially suspicious apps I have installed:</string>
 	<string name="progress_dialog_title">Scanning&#8230;</string>
+	<string name="native_detection_dialog_title">Your device is awesome!</string>
+	<string name="native_detection_dialog_message">Good news! You don\'t need this app at all! Just press and hold on the notification for a few seconds, and your device should tell you who is creating it.</string>
+	<string name="native_detection_dialog_button_use_native">Thanks, I\'ll do that!</string>
+	<string name="native_detection_dialog_button_use_app">It didn\'t work!</string>
 </resources>
