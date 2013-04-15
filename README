@@ -2,13 +2,15 @@ AirPush Detector
 
 This is a simple Android application which detects other installed
 applications which appear to use the AirPush ad framework and a few
-other known notification ad frameworks. Android 4.1 provides a means
-of identifying the source of a notification natively - this app is
+other known notification ad frameworks.
+
+This app is obsoleted by Android 4.1, which provides a means of
+identifying the source of a notification natively - this app is
 provided mainly for earlier Android versions without such a feature.
 
 
 
-Copyright 2010-2012 Daniel Bjorge
+Copyright 2010-2013 Daniel Bjorge
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
