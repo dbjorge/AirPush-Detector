@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2010-2013 Daniel Bjorge
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<resources>
+    <string name="app_name">AirPush Detector</string>
+    <string name="refresh">Scan</string>
+    <string name="progress_dialog_text">Scan de l\'application %1$d/%2$d</string>
+    <string name="app_icon_content_description">Icône de l\'application publicitaire</string>
+    <string name="list_item_ad_framework_prefix">Système publicitaire</string>
+    <string name="no_ad_apps">Désolé - Aucune application se servant de la zone de notification pour afficher de la publicité n\'a été trouvée.\n\nSi les notifications persistent, c\'est sûrement à cause de l\'apparition d\'une nouvelle compagnie publicitaire que le détecteur ne reconnait pas encore.\n\nSi vous souhaitez contribuer à l\'application, vous pouvez utiliser le bouton ci-dessous pour envoyer un e-mail au développeur contenant la liste des applications installées sur votre périphérique.\n\nCet envoi est optionnel et vous serez en mesure de voir le contenu du message avant qu\'il ne soit envoyé. Votre adresse e-mail et la liste des applications que vous avez installé resterons confidentiels, et vous ne recevrez pas non plus de spam.</string>
+    <string name="report">Je veux aider !</string>
+    <string name="no_report">Non merci</string>
+    <string name="send_email_with">Envoyer le rapport :</string>
+    <string name="report_email_subject">AirPush Detector rapport de non détection</string>
+    <string name="report_email_body_prefix">I\'d like to help improve the AirPush Detector! Here is a list of potentially suspicious apps I have installed:</string>
+	<string name="progress_dialog_title">Scan&#8230;</string>
+    <string name="native_detection_dialog_title">Votre appareil est génial !</string>
+    <string name="native_detection_dialog_message">Bonne nouvelle !\nVous n\'avez pas besoin de cette application ! Appuyez sur la notification pendant quelques secondes et votre appareil vous indiquera l\'application qui en est à l\'origine.</string>
+    <string name="native_detection_dialog_button_use_native">Merci, je vais faire ça</string>
+    <string name="native_detection_dialog_button_use_app">Ça n\'a pas fonctionné</string>
+</resources>
